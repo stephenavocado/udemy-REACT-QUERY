@@ -16,8 +16,10 @@ export function Posts() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   // replace with useQuery
-  const { data, isError, isLoading, error } = useQuery("posts", fetchPosts);
+  const { data, isError, isLoading, error } = useQuery("posts", fetchPosts, {staleTime: 2000});
   //by default, useQuery will try 3 times
+  //staleTime - "max age" / how long you can tolerate data being out of date
+  //cacheTime - data in cache expires after 5 minutes since last active useQuery
   if (isLoading) return <h3>Loading...</h3>;
   if (isError) return <h3>{error.toString()}</h3>;
   //isFetching - async query has not resolved
