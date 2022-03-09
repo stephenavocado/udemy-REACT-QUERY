@@ -16,8 +16,12 @@ export function Posts() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   // replace with useQuery
-  const { data } = useQuery("posts", fetchPosts);
-  if (!data) return <div />;
+  const { data, isError, isLoading, error } = useQuery("posts", fetchPosts);
+  //by default, useQuery will try 3 times
+  if (isLoading) return <h3>Loading...</h3>;
+  if (isError) return <h3>{error.toString()}</h3>;
+  //isFetching - async query has not resolved
+  //isLoading - in fetching state, no cached data
 
   return (
     <>
